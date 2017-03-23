@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface
 {
     /**
      * @var int
@@ -42,7 +42,7 @@ class User implements UserInterface, \Serializable
      * @Assert\Email(message="El correo es inválido.")
      * @Assert\Length(max = 100,maxMessage = "El correo debe contener como máximo {{ limit }} caracteres."))
      */
-    private $email;
+    private $username;
 
     /**
      * @var string
@@ -58,9 +58,12 @@ class User implements UserInterface, \Serializable
     private $role;
 
 
+
     public function getRoles()
     {
-        return $this->role;
+        $roles[]= $this->role->getRole();
+
+        return $roles;
     }
 
     public function getPassword()
@@ -71,10 +74,8 @@ class User implements UserInterface, \Serializable
 
     public function getUsername()
     {
-       return $this->email;
+        return $this->username;
     }
-
-
 
 
     /**
@@ -111,26 +112,16 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Set email
+     * Set username
      *
-     * @param string $email
+     * @param string $username
      * @return User
      */
-    public function setEmail($email)
+    public function setUsername($username)
     {
-        $this->email = $email;
+        $this->username = $username;
 
         return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string 
-     */
-    public function getEmail()
-    {
-        return $this->email;
     }
 
     /**
@@ -169,16 +160,6 @@ class User implements UserInterface, \Serializable
         return $this->role;
     }
 
-
-
-    public function serialize()
-    {
-        // TODO: Implement serialize() method.
-    }
-    public function unserialize($serialized)
-    {
-        // TODO: Implement unserialize() method.
-    }
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
