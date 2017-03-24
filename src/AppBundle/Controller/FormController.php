@@ -25,7 +25,7 @@ class FormController extends Controller
         $em = $this->getDoctrine()->getManager();
         $forms=$em->getRepository('AppBundle:Form')->findAll();
         return $this->render('AppBundle:Form:index.html.twig',
-            array('forms'=>$forms,'title'=>'List de formularios creados','mode'=>'admin'));
+            array('forms'=>$forms,'title'=>'Lista de formularios creados','mode'=>'admin'));
     }
 
 

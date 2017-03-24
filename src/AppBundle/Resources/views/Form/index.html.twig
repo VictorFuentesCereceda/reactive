@@ -10,7 +10,8 @@
     {% for form in forms %}
         <div class="form-content">
             <div class="name-form" title="Nombre del formulario">
-                {{ form.name }}</div>
+                {{ form.name|length > 60 ? form.name|slice(0, 60) ~ '...' : form.name  }}
+            </div>
             <div class="number-questions-form">
                 <label class="inside-title-form">Cantidad de preguntas: {{ form.getNumberQuestions }}</label>
             </div>
