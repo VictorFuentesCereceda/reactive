@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Valid;
 
 
 class FormType extends AbstractType
@@ -20,7 +21,7 @@ class FormType extends AbstractType
             ->add('questions', CollectionType::class, array(
                  'entry_type' => QuestionType::class,
                  'allow_add'    => true,
-                'cascade_validation' => true,
+                'constraints' => new Valid(),
              ));
 
     }
@@ -32,7 +33,7 @@ class FormType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => Form::class,
-            'cascade_validation' => true,
+            'constraints' => new Valid(),
         ));
     }
     /**

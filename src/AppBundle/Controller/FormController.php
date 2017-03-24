@@ -41,7 +41,6 @@ class FormController extends Controller
 
         $form = !$formPrev ? $this->createForm(FormType::class,$newForm) : $formPrev;
 
-
         $html= $this->renderView('AppBundle:Form:form.html.twig',
             array('form'=>$form->createView(),'question'=>null));
         if($formPrev)

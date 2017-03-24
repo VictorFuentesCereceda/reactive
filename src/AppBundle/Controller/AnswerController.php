@@ -69,7 +69,6 @@ class AnswerController extends Controller
         }
     }
 
-
     /**
      * @Route("/results", name="results")
      * @Security("has_role('ROLE_ADMINISTRATOR')")
@@ -89,9 +88,7 @@ class AnswerController extends Controller
     public function viewResultAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-
-            $formId = $request->get("id");
+        $formId = $request->get("id");
 
         $form = $em->getRepository('AppBundle:Form')->find($formId);
         $results = $em->getRepository('AppBundle:Answer')->findResultFormByQuestion($formId);
@@ -99,12 +96,10 @@ class AnswerController extends Controller
         $totalAnswers = $em->getRepository('AppBundle:Answer')->amountUsersAnswerForm($formId);
         $questions = $em->getRepository('AppBundle:Question')->getQuestionsByForm($formId);
 
-
         return $this->render('AppBundle:Answer:results.html.twig',
             array('results'=>$results,'form'=>$form,'choices'=>Question::$choices,'totalAnswers'=>$totalAnswers,
                 'questions'=>$questions));
     }
-
 
     /**
      * @Route("/results/news", name="result_news")
@@ -125,7 +120,6 @@ class AnswerController extends Controller
         }else{
             return new Response(0);
         }
-
     }
 
 }
