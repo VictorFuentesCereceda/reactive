@@ -85,7 +85,7 @@ Instalar aplicación
             </Directory>
         </VirtualHost>
         
-        Recuerda reemplazar "ruta_proyectos" por la ruta de tus rproyectos. Una vez guardado recuerda reiniciar el servidor web.
+        Recuerda reemplazar "ruta_proyectos" por la ruta de tus proyectos. Una vez guardado recuerda reiniciar el servidor web.
      
 Pruebas
 ===
@@ -113,7 +113,7 @@ Módulos
     - **Formulario**: Acá podrá ver una lista de los formularios creados y crear formularios nuevos.
     - **Resultados**: Acá verá solo los formularios que tienen resultados, podrá entrar al detalle y ver los resultados en gráficos. Esta vista se actualiza automáticamente cada vez que hay un nuevo resultado. 
 2. **Usuario**:
-    - **Formulario**: Acá el usuario verá los formularios disponibles para responder, los que yahan sido respondidos no aparecerán.
+    - **Formulario**: Acá el usuario verá los formularios disponibles para responder, los que hayan sido respondidos no aparecerán.
 
 Autor
 ====
