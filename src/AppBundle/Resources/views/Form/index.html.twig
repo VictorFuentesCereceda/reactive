@@ -1,0 +1,24 @@
+{% extends 'AppBundle::gral.html.twig' %}
+ {% block titleMainContent %}{{ title }}{% endblock %}
+{% block btnTitle %}
+     {% if admin %}
+    <button type="button" class="btn btn-border btn-success pull-right" onclick="createForm()" >Crear formulario</button>
+{% endif %}
+{% endblock %}
+{% block maincontent %}
+
+        {% for form in forms %}
+            <div class="form-content">
+               <div class="name-form" title="Nombre del formulario">
+                   {{ form.name }}</div>
+                <div class="number-questions-form">
+                    <label class="inside-title-form">Cantidad de preguntas: {{ form.getNumberQuestions }}</label>
+                </div>
+                {% if admin==false %}
+                <div onclick="answerForm({{ form.id }})">responder</div>
+                {% endif %}
+            </div>
+        {% else %}
+            No existe nungún formulario creado
+        {% endfor %}
+{% endblock %}

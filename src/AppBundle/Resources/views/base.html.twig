@@ -18,10 +18,23 @@
         }
     </style>
 </head>
-<body>
+<body class="{% block classBody %}{% endblock %}">
 {% block body %}
 
 {% endblock %}
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div id ="modal-content" class="modal-body">
+
+            </div>
+            <button id="btnCancel" type="button" class="btn btn-border" onclick="removeModal()">Cancelar</button>
+            <button id="btnSuccess" type="button" class="btn btn-border btn-sucess" onclick="" ></button>
+        </div>
+    </div>
+</div>
+
 <script charset="utf-8" src="{{ asset('bundles/app/bootstrap/js/bootstrap.min.js') }}"></script>
 {% block javascripts %}
 {% endblock %}

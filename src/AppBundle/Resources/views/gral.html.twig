@@ -1,0 +1,58 @@
+{% extends 'AppBundle::base.html.twig' %}
+{% block css %}
+    <link href="{{  asset('bundles/app/css/gral.css')}}" rel="stylesheet" />
+{% endblock %}
+{% block classBody %}alert-open alert-with-mat-grow-top-right{% endblock %}
+{% block body %}
+    <main>
+        <aside class="sidebar">
+            <div class="aside">
+                <div><img src="{{asset('bundles/app/img/reactive.png')}}" style="width:80px;"></div>
+                <div>
+                    <div class="datas-user">
+                        <div class="user-name" >
+                            <span class="glyphicon glyphicon-user pull-left icon-sidebar" aria-hidden="true" ></span>
+                            {{ app.user.name }}</div>
+                        <div class="user-role" >
+                            <span class="glyphicon glyphicon-eye-open pull-left icon-sidebar" aria-hidden="true" ></span>
+                            {{ app.user.role.name }}</div>
+                        <div class="user-email" >
+                            <span class="glyphicon glyphicon glyphicon-envelope pull-left icon-sidebar" aria-hidden="true" ></span>
+                            {{ app.user.username }}</div>
+                    </div>
+                </div>
+                <div class="separator"></div>
+                <ul class="menu-links">
+                    <li class="">
+                        <a href="{{ url('forms') }}" >
+                            <span class="glyphicon glyphicon-list-alt pull-left icon-sidebar" aria-hidden="true" ></span>
+                            FORMULARIOS</a>
+                    </li>
+                    <li class="">
+                        <a href="{{ url('forms') }}" >
+                            <span class="glyphicon glyphicon-stats pull-left icon-sidebar" aria-hidden="true" ></span>
+                            RESULTADOS</a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        <div class="main-container">
+            <div class="main-content">
+                <div class="header-main-content">
+                    <span class="title-main-content"> {% block titleMainContent %}{% endblock %}</span>
+                    {% block btnTitle %}{% endblock %}
+                </div>
+                <div class="body-main-content">
+                    {% block maincontent %}
+                        content
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+{% block javascripts %}
+
+    <script>{% include 'AppBundle::gral.js.twig' %}</script>
+{% endblock %}
+

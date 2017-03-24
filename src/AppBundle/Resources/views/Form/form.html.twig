@@ -1,0 +1,28 @@
+ {{ form_start(form) }}
+
+    <div class="col-sm-9 col-md-9 ">
+        <div class="form-group {% if form_errors(form.name) %}has-error{% endif %}">
+            <label class="control-label">Nombre</label>
+            {{ form_widget(form.name,{'attr': {'class': 'form-control'}}) }}
+            <div class="help-block">{{ form_errors(form.name) }}</div>
+        </div>
+    </div>
+ <div class="clearfix"></div>
+ <div class="col-sm-9 col-md-9 ">
+        <div id="listQuestions">
+        {% for question in form.questions %}
+            <div id="ques-{{ loop.index }}" class="form-group {% if form_errors(question.question) %}has-error{% endif %}">
+                <label class="control-label number-question">Pregunta {{ loop.index }}</label>
+                {{ form_widget(question.question,{'attr': {'class': 'form-control'}}) }}
+                <div class="help-block">{{ form_errors(question.question) }}</div>
+            </div>
+        {% endfor %}
+        </div>
+
+ </div>
+ {{ form_end(form) }}
+ <div class="clearfix"></div>
+ <div>
+     <button onclick="addQuestion()" class="btn btn-info">Agregar Pregunta</button>
+     <button type="button" class="btn btn-success" onclick="save_form()">Guardar</button>
+ </div>
