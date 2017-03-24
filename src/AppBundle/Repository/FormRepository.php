@@ -12,4 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class FormRepository extends EntityRepository
 {
+    public function findWithAnswers(){
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $forms = $qb->select('f')
+            ->from('AppBundle:Form', 'f')
+            ->innerJoin("f.answers","ans")
+            ->getQuery()
+            ->getResult();
+
+        return $forms;
+    }
 }

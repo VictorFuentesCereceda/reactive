@@ -49,7 +49,6 @@ aside.sidebar ul a:hover{
 .main-content{
    padding-left: 230px;
     padding-top: 10px;
-  position: relative;
 }
 
 .header-main-content{
@@ -78,4 +77,32 @@ aside.sidebar ul a:hover{
     background: #5a5a5a;
     padding: 10px;
     border-radius: 3px;
+}
+.container-graph{
+    width: 40%;
+
+    float: left;
+}
+.container-graph:nth-child(odd){
+    margin-right: 10%;
+}
+
+table.content-details-result{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+table.content-details-result td{
+    padding: 5px;
+}
+table.content-details-result td:nth-child(odd){
+   background: #f4f4f4;
+}
+
+.btn-view-result{
+    position: fixed;
+    right: 15px;
+    z-index: 1000;
 }

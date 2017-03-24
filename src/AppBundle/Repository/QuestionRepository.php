@@ -12,4 +12,22 @@ use Doctrine\ORM\EntityRepository;
  */
 class QuestionRepository extends EntityRepository
 {
+
+    function getQuestionsByForm($id)
+    {
+        $em = $this->getEntityManager();
+
+        $qb = $em->createQueryBuilder();
+        $questionsTmp = $qb->select('q.id,q.question')
+            ->from('AppBundle:Question', 'q')
+            ->where('q.form = :formId')
+            ->setParameter("formId", $id)
+            ->getQuery()
+            ->getResult();
+        $questions=[];
+        foreach ($questionsTmp as $question){
+            $questions[$question['id']]=$question['question'];
+        }
+        return $questions;
+    }
 }

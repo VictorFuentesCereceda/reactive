@@ -1,0 +1,24 @@
+<div class="header-main-content">
+    <span class="title-main-content"> Formulario:{{ form.name }}</span>
+</div>
+<div class="body-main-content">
+    <form name="answer_form">
+        <input type="hidden" name="form_id" value="{{ form.id }}">
+    {% for question in form.questions %}
+        {% set questionId=question.id %}
+        <div id="ques-{{ questionId }}">
+            {{ question.question }}
+            <div class="list-choices">
+                {% for key,choice in question.getChoices() %}
+                    <div>
+                        <input type="radio" name="ques[{{ questionId }}]" value="{{ key }}">{{ choice }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+
+    <button type="button" class="btn btn-success" onclick="saveAnswer()"> Enviar</button>
+    </form>
+</div>
+

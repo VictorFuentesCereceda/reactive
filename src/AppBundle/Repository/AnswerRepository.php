@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Answer;
+use AppBundle\Entity\Question;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -19,7 +21,7 @@ class AnswerRepository extends EntityRepository
             ->from('AppBundle:Answer', 'a')
             ->where('a.user = :userId')
             ->groupBy('a.form')
-       ;
+        ;
         $qb = $em->createQueryBuilder();
         $forms = $qb->select('f')
             ->from('AppBundle:Form', 'f')
@@ -31,4 +33,54 @@ class AnswerRepository extends EntityRepository
         return $forms;
 
     }
+
+
+    public function findResultFormByQuestion($id){
+        $em = $this->getEntityManager();
+
+        $questions = $em->getRepository('AppBundle:Question')->getQuestionsByForm($id);
+
+
+        $qb = $em->createQueryBuilder();
+        $answers=$qb ->select('a')
+            ->from('AppBundle:Answer', 'a')
+            ->where('a.form = :formId')
+            ->setParameter('formId',$id)
+            ->getQuery()
+            ->getResult();
+        $resultsTmp=[];
+        $choices= Question::$choices;
+        foreach ($questions as $numberQuestion=>$question) {
+            foreach ($choices as $key=>$choice) {
+                $resultsTmp[$numberQuestion][$key]=0;
+            }
+        }
+        $totalAnswers=$this->amountUsersAnswerForm($id);
+        foreach ($answers as $answer){
+            $resultsTmp[$answer->getQuestion()->getId()][$answer->getAnswer()]++;
+        }
+        $results=[];
+        foreach ($resultsTmp as $numQuestion=>$result){
+            foreach ($result as $keyChoice=>$val){
+                $results[$numQuestion][$keyChoice]=round($val*100/$totalAnswers,2);
+            }
+        }
+
+        return $results;
+    }
+
+    public function amountUsersAnswerForm($idForm){
+        $em = $this->getEntityManager();
+
+        $qb = $em->createQueryBuilder();
+        $amount = $qb->select('COUNT(a)')
+            ->from('AppBundle:Answer', 'a')
+            ->where('a.form = :formId')
+            ->groupBy('a.user')
+            ->setParameter("formId",$idForm)
+            ->getQuery()
+            ->getResult();
+        return count($amount);
+    }
+
 }

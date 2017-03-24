@@ -1,6 +1,9 @@
 /**
  * Created by desarrollador1 on 23-03-17.
  */
+
+var REFRESHRESULTS;
+
 function save_form(){
     var questions=$("form[name='appbundle_question']").serialize();
     var form = $("form[name='appbundle_form']").serialize();
@@ -10,20 +13,27 @@ function save_form(){
         type:'POST',
     }).done(function(r){
         if(r==1) {
-            modalDefault("Formulario creado correctamente","listForms()","Aceptar");
-
+            modalDefault("Formulario creado correctamente","listForms()","Aceptar",false);
         }else {
-        $(".body-main-content").html(r);
+            $(".body-main-content").html(r);
         }
     }).error(function(){
-
+        showError();
     });
 }
 
-function modalDefault(txt,functionSucc,txtBtnTMP){
+function showError() {
+    modalDefault("Ha ocurrido un error, vuelva a intentarlo.","listForms()","Aceptar",false);
+}
+function modalDefault(txt,functionSucc,txtBtnTMP,showBtnCancel){
 
     $("#modal-content").html(txt);
     $("#btnSuccess").attr("onclick",functionSucc);
+    if(showBtnCancel){
+        $("#btnCancel").show();
+    }else{
+        $("#btnCancel").hide();
+    }
     $("#btnSuccess").html(txtBtnTMP);
         setTimeout(function() {
             $("#modal").modal("show");
@@ -45,6 +55,15 @@ function listForms(){
         window.location.href="/forms";
     {% endif %}
 }
+
+function listFormsAnswers(){
+    {% if  app.environment  == "dev" %}
+    window.location.href="/app_dev.php/forms/answer";
+    {% else %}
+    window.location.href="/forms/answer";
+    {% endif %}
+}
+
 
 function createForm(){
     {% if  app.environment  == "dev" %}
@@ -73,9 +92,65 @@ function answerForm(id) {
         data:{formId:id},
         type:'POST',
     }).done(function(r){
-       alert(r);
+       $(".main-content").html(r);
     }).error(function(){
-
+        showError();
     });
 
 }
+
+function saveAnswer(){
+    $.ajax({
+        url: "{{ path('save_answer') }}",
+        data:$("form[name='answer_form']").serialize(),
+        type:'POST',
+    }).done(function(r){
+       if(r==1){
+           modalDefault("Formulario enviado correctamente.","listFormsAnswers()","Aceptar",false);
+       }else{
+           showError();
+       }
+    }).error(function(){
+        showError();
+    });
+}
+
+function viewResult(id) {
+    var scroll_t = $(document).scrollTop();
+    $.ajax({
+        url: "{{ path('view_result') }}",
+        data:{ id:id},
+        type:'POST',
+    }).done(function(r){
+        $(".main-content").html(r);
+        $(document).scrollTop(scroll_t);
+        REFRESHRESULTS=setInterval('$("#btnViewResult").click()',5000);
+    }).error(function(){
+
+    });
+}
+
+function isNewAnswers(formId) {
+    if($("#btnViewResult").length) {
+        var usersAnswers = $("#usersAnswers").val();
+        var scroll_t = $(document).scrollTop();
+        $.ajax({
+            url: "{{ path('result_news') }}",
+            data: {usersAnswers: usersAnswers, formId: formId},
+            type: 'POST',
+        }).done(function (r) {
+
+            if (r != 0) {
+                $(".main-content").html(r);
+                $(document).scrollTop(scroll_t);
+            }
+        });
+    }else{
+        clearInterval(REFRESHRESULTS);
+    }
+}
+
+
+
+
+

@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Question
 {
+    static public $choices=[0=>'CUMPLE',1=>'NO CUMPLE',2=>'NO APLICA'];
     /**
      * @var int
      *
@@ -136,5 +137,9 @@ class Question
     public function getForm()
     {
         return $this->form;
+    }
+
+    public function getChoices(){
+        return Question::$choices;
     }
 }

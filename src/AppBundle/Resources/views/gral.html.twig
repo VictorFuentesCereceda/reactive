@@ -1,6 +1,8 @@
 {% extends 'AppBundle::base.html.twig' %}
 {% block css %}
     <link href="{{  asset('bundles/app/css/gral.css')}}" rel="stylesheet" />
+    <link href="https://code.highcharts.com/css/highcharts.css" rel="stylesheet" />
+
 {% endblock %}
 {% block classBody %}alert-open alert-with-mat-grow-top-right{% endblock %}
 {% block body %}
@@ -10,9 +12,9 @@
                 <div><img src="{{asset('bundles/app/img/reactive.png')}}" style="width:80px;"></div>
                 <div>
                     <div class="datas-user">
-                        <div class="user-name" >
+                        <div class="user-name">
                             <span class="glyphicon glyphicon-user pull-left icon-sidebar" aria-hidden="true" ></span>
-                            {{ app.user.name }}</div>
+                            {{ app.user.name }} (<a href="{{ path('logout') }}"> logout </a>)</div>
                         <div class="user-role" >
                             <span class="glyphicon glyphicon-eye-open pull-left icon-sidebar" aria-hidden="true" ></span>
                             {{ app.user.role.name }}</div>
@@ -24,15 +26,17 @@
                 <div class="separator"></div>
                 <ul class="menu-links">
                     <li class="">
-                        <a href="{{ url('forms') }}" >
+                        <a href="{% if is_granted('ROLE_ADMINISTRATOR')%}{{ url('forms') }}{% else %}{{ url('list_forms_answer') }}{% endif %}" >
                             <span class="glyphicon glyphicon-list-alt pull-left icon-sidebar" aria-hidden="true" ></span>
                             FORMULARIOS</a>
                     </li>
+            {% if is_granted('ROLE_ADMINISTRATOR')%}
                     <li class="">
-                        <a href="{{ url('forms') }}" >
+                        <a href="{{ url('results') }}" >
                             <span class="glyphicon glyphicon-stats pull-left icon-sidebar" aria-hidden="true" ></span>
                             RESULTADOS</a>
                     </li>
+                    {% endif %}
                 </ul>
             </div>
         </aside>
@@ -53,6 +57,7 @@
 {% endblock %}
 {% block javascripts %}
 
+    <script src="https://code.highcharts.com/highcharts.js"></script>
     <script>{% include 'AppBundle::gral.js.twig' %}</script>
 {% endblock %}
 

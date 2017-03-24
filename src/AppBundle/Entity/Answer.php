@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Answer
 {
 
-    static public $typeAnswers=[0=>'CUMPLE',1=>'NO CUMPLE',2=>'NO APLICA'];
+
     /**
      * @var int
      *
