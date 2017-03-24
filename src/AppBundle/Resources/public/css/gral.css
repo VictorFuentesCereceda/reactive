@@ -132,3 +132,18 @@ a:hover{
     font-size: 20px;
     color: #3B9AD9;
 }
+
+.question{
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-top: 15px;
+}
+.list-choices{
+    margin-left: 10px;
+}
+
+
+.btn-send-answer{
+    margin-top: 10px;
+}

@@ -1,24 +1,25 @@
 <div class="header-main-content">
-    <span class="title-main-content"> Formulario:{{ form.name }}</span>
+    <span class="title-main-content"> Formulario: {{ form.name|length > 70 ? form.name|slice(0, 70) ~ '...' : form.name  }}</span>
 </div>
 <div class="body-main-content">
     <form name="answer_form">
         <input type="hidden" name="form_id" value="{{ form.id }}">
     {% for question in form.questions %}
         {% set questionId=question.id %}
-        <div id="ques-{{ questionId }}">
-            {{ question.question }}
+        <div id="ques-{{ questionId }}" class="">
+            <div class="question">{{ loop.index }} -. {{ question.question }}</div>
             <div class="list-choices">
                 {% for key,choice in question.getChoices() %}
                     <div>
-                        <input type="radio" name="ques[{{ questionId }}]" value="{{ key }}">{{ choice }}
+                        <input type="radio" name="ques[{{ questionId }}]" value="{{ key }}"> {{ choice }}
                     </div>
                 {% endfor %}
             </div>
         </div>
     {% endfor %}
-
-    <button type="button" class="btn btn-success" onclick="saveAnswer()"> Enviar</button>
+<div class="btn-send-answer">
+    <button type="button" class="btn btn-success" onclick="saveAnswer()"> Enviar formulario </button>
+</div>
     </form>
 </div>
 
