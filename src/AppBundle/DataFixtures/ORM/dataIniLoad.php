@@ -8,6 +8,8 @@
 
 namespace Edcorp\UserBundle;
 
+use AppBundle\Entity\Form;
+use AppBundle\Entity\Question;
 use AppBundle\Entity\Role;
 use AppBundle\Entity\User;
 use Doctrine\Common\DataFixtures\AbstractFixture;
@@ -54,9 +56,10 @@ class loadIniData  extends AbstractFixture implements FixtureInterface, Containe
         ];
 
         $users = [
-            ["Administrador", "admin@reactive.cl", "administrador", "ROLE_ADMINISTRATOR"],
-            ["Usuario","usuario@reactive.cl","usuario","ROLE_USER"]
+            ["Juan", "admin@reactive.cl", "administrador", "ROLE_ADMINISTRATOR"],
+            ["Cristian","usuario@reactive.cl","usuario","ROLE_USER"]
         ];
+
 
         foreach ($roles as $role) {
             $newRole= new Role();
@@ -80,6 +83,19 @@ class loadIniData  extends AbstractFixture implements FixtureInterface, Containe
             $manager->persist($u);
             $manager->flush();
         }
+
+        $form= new Form();
+        $form->setName("Nuevo formulario");
+
+        for ($i=0;$i<3;$i++)
+        {
+            $question= new Question();
+            $question->setQuestion("Pregunta ".($i+1));
+            $form->addQuestion($question);
+            $question->setForm($form);
+        }
+        $manager->persist($form);
+        $manager->flush();
     }
 
 
