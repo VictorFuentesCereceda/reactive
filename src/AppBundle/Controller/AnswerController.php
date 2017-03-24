@@ -4,21 +4,19 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Answer;
 use AppBundle\Entity\Question;
-use AppBundle\Form\FormType;
-use AppBundle\Form\QuestionType;
-use AppBundle\Repository\AnswerRepository;
-use Assetic\Exception\Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class AnswerController extends Controller
 {
     /**
      * @Route("/forms/answer", name="list_forms_answer")
+     * @Security("has_role('ROLE_USER')")
      */
-    public function saveFormAction(Request $request)
+    public function listFormAnswersAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $forms=$em->getRepository('AppBundle:Answer')->findForUser($this->getUser()->getId());
@@ -28,6 +26,7 @@ class AnswerController extends Controller
 
     /**
      * @Route("/answer", name="answer_form")
+     * @Security("has_role('ROLE_USER')")
      */
     public function answerFormAction(Request $request)
     {
@@ -40,6 +39,7 @@ class AnswerController extends Controller
 
     /**
      * @Route("/answer/save", name="save_answer")
+     * @Security("has_role('ROLE_USER')")
      */
     public function saveAnswerFormAction(Request $request)
     {
@@ -72,6 +72,7 @@ class AnswerController extends Controller
 
     /**
      * @Route("/results", name="results")
+     * @Security("has_role('ROLE_ADMINISTRATOR')")
      */
     public function resultsAction(Request $request)
     {
@@ -83,6 +84,7 @@ class AnswerController extends Controller
 
     /**
      * @Route("/results/view", name="view_result")
+     * @Security("has_role('ROLE_ADMINISTRATOR')")
      */
     public function viewResultAction(Request $request)
     {
@@ -106,6 +108,7 @@ class AnswerController extends Controller
 
     /**
      * @Route("/results/news", name="result_news")
+     * @Security("has_role('ROLE_ADMINISTRATOR')")
      */
     public function newsResultAction(Request $request)
     {

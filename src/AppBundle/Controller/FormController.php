@@ -11,12 +11,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class FormController extends Controller
 {
 
     /**
      * @Route("/forms", name="forms")
+     * @Security("has_role('ROLE_ADMINISTRATOR')")
      */
     public function formsAction()
     {
@@ -29,6 +31,7 @@ class FormController extends Controller
 
     /**
      * @Route("/forms/new", name="forms_new")
+     * @Security("has_role('ROLE_ADMINISTRATOR')")
      */
     public function createFormAction($formPrev=null)
     {
@@ -53,6 +56,7 @@ class FormController extends Controller
 
     /**
      * @Route("/forms/save", name="forms_save")
+     * @Security("has_role('ROLE_ADMINISTRATOR')")
      */
     public function saveFormAction(Request $request)
     {
