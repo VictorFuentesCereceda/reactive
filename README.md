@@ -63,6 +63,8 @@ Instalar aplicación
         $ sudo chmod 777 app/logs
         $ sudo chmod 777 app/cache
         
+    Con estos comando basta para tener cargada la base de datos y la información inicial, de todos modos se subieron a la carpeta `reactive/sql` todos los scripts para el esquema y datos de prueba. 
+        
 6. Cargar datos básicos:
 
         php app/console doctrine:f:l
