@@ -1,0 +1,2 @@
+INSERT INTO reactive.user (role_id, name, email, password) VALUES (1, 'Juan', 'admin@reactive.cl', '$2y$13$hNgmxpQm7GQnZT3KAHy2q.6x9w17EcAJ.yuhXaHEDfX50yjEKMbTy');
+INSERT INTO reactive.user (role_id, name, email, password) VALUES (2, 'Cristian', 'usuario@reactive.cl', '$2y$13$OgpRtkrL7xckVEZV6RcXBeKylWswVc7VchTBm9ZSYs5k7avLiqFJu');
