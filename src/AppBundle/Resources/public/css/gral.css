@@ -21,13 +21,15 @@ aside.sidebar ul{
 }
 aside.sidebar ul a{
     margin: 0;
-    padding: 15px 10px 15px 0px;
+    padding: 15px 10px 15px 10px;
     color: whitesmoke;
     display: block;
     position: relative;
 }
 aside.sidebar ul a:hover{
     background: #545454;
+    border-radius: 2px;
+    color:#ED992B;
 }
 .icon-sidebar{
     margin-right: 5px;
@@ -107,4 +109,14 @@ table.content-details-result td:nth-child(odd){
     position: fixed;
     right: 15px;
     z-index: 1000;
+}
+
+.user-name{
+    font-size: 15px;
+    font-weight: bold;
+}
+
+a:hover{
+    color: #ED992B;
+    text-decoration: none;
 }
