@@ -2,17 +2,47 @@
 
 namespace AppBundle\Tests\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+
 
 class DefaultControllerTest extends WebTestCase
 {
-    public function testIndex()
+
+    protected $em;
+    protected $client;
+    protected $_application;
+
+    function setUp()
     {
-        $client = static::createClient();
+        $this->client = static::createClient();
+        $kernel = new \AppKernel('test', true);
+        $kernel->boot();
+        $this->_application = new Application($kernel);
+        $this->_application->setAutoExit(false);
 
-        $crawler = $client->request('GET', '/');
+        $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
+    }
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('Welcome to Symfony', $crawler->filter('#container h1')->text());
+    public function testIndexUsuario()
+    {
+        $this->login('usuario@reactive.cl','usuario');
+        $crawler =  $this->client->request('GET', '/');
+        $this->assertEquals(1, $crawler->filter('html:contains("Formularios para responder")')->count());
+    }
+
+    public function testIndexAdmin()
+    {
+        $this->login('admin@reactive.cl','administrador');
+        $crawler =  $this->client->request('GET', '/');
+        $this->assertEquals(1, $crawler->filter('html:contains("Lista de formularios creados")')->count());
+    }
+
+    public function login($user,$pass){
+        $crawler =  $this->client->request('GET', '/login');
+        $buttonCrawlerNode = $crawler->selectButton('Ingresar');
+        $form = $buttonCrawlerNode->form();
+        $data = array('_username' => $user,'_password' => $pass);
+        $this->client->submit($form,$data);
     }
 }
