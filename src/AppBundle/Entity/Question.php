@@ -37,6 +37,11 @@ class Question
     private $answers;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Form", inversedBy="questions")
+     */
+    private $form;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -108,5 +113,28 @@ class Question
     public function getAnswers()
     {
         return $this->answers;
+    }
+
+    /**
+     * Set form
+     *
+     * @param \AppBundle\Entity\Form $form
+     * @return Question
+     */
+    public function setForm(\AppBundle\Entity\Form $form)
+    {
+        $this->form = $form;
+
+        return $this;
+    }
+
+    /**
+     * Get form
+     *
+     * @return \AppBundle\Entity\Form
+     */
+    public function getForm()
+    {
+        return $this->form;
     }
 }

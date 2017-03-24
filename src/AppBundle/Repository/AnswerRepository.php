@@ -12,4 +12,23 @@ use Doctrine\ORM\EntityRepository;
  */
 class AnswerRepository extends EntityRepository
 {
+    public function findForUser($userId){
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $not=$qb ->select('IDENTITY(a.form)')
+            ->from('AppBundle:Answer', 'a')
+            ->where('a.user = :userId')
+            ->groupBy('a.form')
+       ;
+        $qb = $em->createQueryBuilder();
+        $forms = $qb->select('f')
+            ->from('AppBundle:Form', 'f')
+            ->where($qb->expr()->notIn('f.id', $not->getDQL()))
+            ->setParameter("userId",$userId)
+            ->getQuery()
+            ->getResult();
+
+        return $forms;
+
+    }
 }

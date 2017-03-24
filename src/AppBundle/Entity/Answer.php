@@ -34,6 +34,11 @@ class Answer
     private $question;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Form", inversedBy="answers")
+     */
+    private $form;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="answer", type="integer")
@@ -129,5 +134,28 @@ class Answer
     {
 
         return $this->question;
+    }
+
+    /**
+     * Set form
+     *
+     * @param \AppBundle\Entity\Form $form
+     * @return Answer
+     */
+    public function setForm(\AppBundle\Entity\Form $form = null)
+    {
+        $this->form = $form;
+
+        return $this;
+    }
+
+    /**
+     * Get form
+     *
+     * @return \AppBundle\Entity\Form 
+     */
+    public function getForm()
+    {
+        return $this->form;
     }
 }

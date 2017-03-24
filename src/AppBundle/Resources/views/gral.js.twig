@@ -1,0 +1,81 @@
+/**
+ * Created by desarrollador1 on 23-03-17.
+ */
+function save_form(){
+    var questions=$("form[name='appbundle_question']").serialize();
+    var form = $("form[name='appbundle_form']").serialize();
+    $.ajax({
+        url:"{{ path('forms_save')}}",
+        data:form,
+        type:'POST',
+    }).done(function(r){
+        if(r==1) {
+            modalDefault("Formulario creado correctamente","listForms()","Aceptar");
+
+        }else {
+        $(".body-main-content").html(r);
+        }
+    }).error(function(){
+
+    });
+}
+
+function modalDefault(txt,functionSucc,txtBtnTMP){
+
+    $("#modal-content").html(txt);
+    $("#btnSuccess").attr("onclick",functionSucc);
+    $("#btnSuccess").html(txtBtnTMP);
+        setTimeout(function() {
+            $("#modal").modal("show");
+        },500);
+}
+
+function removeModal(){
+    $.each($(".modal"), function( index, value ) {
+        $(this).modal('hide');
+    });
+    $(".modal-backdrop").remove();
+    $('body').removeClass('modal-open');
+}
+
+function listForms(){
+    {% if  app.environment  == "dev" %}
+        window.location.href="/app_dev.php/forms";
+    {% else %}
+        window.location.href="/forms";
+    {% endif %}
+}
+
+function createForm(){
+    {% if  app.environment  == "dev" %}
+    window.location.href="/app_dev.php/forms/new";
+    {% else %}
+    window.location.href="/forms/new";
+    {% endif %}
+}
+
+function addQuestion(){
+    var numQues=$("#listQuestions>div").length;
+    var html=$("#ques-"+numQues).html();
+    var keyQues=numQues-1;
+    var newNum=numQues+1;
+
+    html=html.replace(numQues,newNum);
+    html=html.replace("["+keyQues+"]","["+numQues+"]");
+    html=html.replace("_"+keyQues+"_","_"+numQues+"_");
+    $("#listQuestions").append("<div id='ques-"+newNum+"' class='form-group'>"+html+"</div>");
+
+}
+
+function answerForm(id) {
+    $.ajax({
+        url: "{{ path('answer_form') }}",
+        data:{formId:id},
+        type:'POST',
+    }).done(function(r){
+       alert(r);
+    }).error(function(){
+
+    });
+
+}
