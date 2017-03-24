@@ -4,9 +4,6 @@
     <link href="{{  asset('bundles/app/css/body.css')}}" rel="stylesheet" />
 {% endblock %}
 {% block body %}
-    {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
     <div class="container center-div">
         <div class="row">
 
