@@ -147,3 +147,13 @@ a:hover{
 .btn-send-answer{
     margin-top: 10px;
 }
+
+.modal-body{
+    text-align: center;
+    font-size: 25px;
+    color: #3B9AD9;
+}
+
+.modal-buttons{
+    margin-bottom: 10px;
+}
