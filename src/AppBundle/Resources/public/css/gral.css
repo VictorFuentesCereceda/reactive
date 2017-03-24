@@ -45,6 +45,7 @@ aside.sidebar ul a:hover{
     margin-bottom: 15px;
     float: left;
     width: 48%;
+    border: 1px solid #ddd;
 }
 .inside-title-form{
     font-size:10px;
@@ -86,6 +87,11 @@ aside.sidebar ul a:hover{
     width: 40%;
 
     float: left;
+
+    box-shadow: 3px 3px 3px gray;
+    position: relative;
+    margin-bottom: 2%;
+
 }
 .container-graph:nth-child(odd){
     margin-right: 10%;
@@ -95,15 +101,14 @@ table.content-details-result{
     margin-top: 10px;
     margin-bottom: 10px;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 table.content-details-result td{
     padding: 5px;
+    background: #f4f4f4;
 }
-table.content-details-result td:nth-child(odd){
-   background: #f4f4f4;
-}
+
 
 .btn-view-result{
     position: fixed;
@@ -122,3 +127,8 @@ a:hover{
 }
 
 .name-form{font-size: 18px}
+.view-result{
+    cursor: pointer;
+    font-size: 20px;
+    color: #3B9AD9;
+}

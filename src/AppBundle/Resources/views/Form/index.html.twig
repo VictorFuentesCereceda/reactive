@@ -18,7 +18,9 @@
             {% if mode=='user' %}
                 <div onclick="answerForm({{ form.id }})">responder</div>
                 {% elseif mode=='results' %}
-                    <div onclick="viewResult({{ form.id }})">resultado</div>
+                    <div onclick="viewResult({{ form.id }})" class="">
+                        <span class="glyphicon glyphicon-eye-open pull-right view-result" aria-hidden="true" ></span>
+                    </div>
             {% endif %}
         </div>
     {% else %}
